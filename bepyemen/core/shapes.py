@@ -11,11 +11,11 @@ class Line(Shape):
 
     def __str__(self):
         stroke_dasharray = 'stroke-dasharray="4 4" ' if self._dashed else ""
-        return f"""
-            <line x1="{self._start.x}" y1="{self._start.y}" 
-                x2="{self._end.x}" y2="{self._end.y}" 
-                stroke="{self._colour}" stroke-width="2" {stroke_dasharray}/>
-        """
+        return (
+            f"""<line x1="{self._start.x}" y1="{self._start.y}" """
+            f"""x2="{self._end.x}" y2="{self._end.y}" """
+            f"""stroke="{self._colour}" stroke-width="2" {stroke_dasharray}/> """
+        )
 
 
 class Circle(Shape):
@@ -25,12 +25,12 @@ class Circle(Shape):
         self._fill = fill
 
     def __str__(self):
-        return f"""
-            <circle cx="{self._centre.x}" cy="{self._centre.y}" 
-                r="{self._radius}" 
-                stroke="black" stroke-width="3" 
-                fill="{self._fill}" />
-        """
+        return (
+            f"""<circle cx="{self._centre.x}" cy="{self._centre.y}" """
+            f"""r="{self._radius}" """
+            """stroke="black" stroke-width="3" """
+            f"""fill="{self._fill}" />"""
+        )
 
     def __repr__(self):
         return f"{self.__class__}({self._centre}, {self._radius})"
@@ -44,12 +44,29 @@ class Rectangle(Shape):
         self._fill = fill
 
     def __str__(self):
-        return f"""
-            <rect x="{self._pos.x}" y="{self._pos.y}" 
-                width="{self._width}" height="{self._height}" 
-                fill="{self._fill}" 
-                stroke-width="4" stroke="pink" />
-        """
+        return (
+            f"""<rect x="{self._pos.x}" y="{self._pos.y}" """
+            f"""width="{self._width}" height="{self._height}" """
+            f"""fill="{self._fill}" """
+            """stroke-width="4" stroke="pink" />"""
+        )
 
     def __repr__(self):
         return f"{self.__class__}({self._top_left}, {self._width}x{self._height})"
+
+
+class Diamond(Shape):
+    def __init__(self, pos: Position, width: int, height: int, fill: Colour):
+        self._pos = pos
+        self._width = width
+        self._height = height
+        self._fill = fill
+
+    def __str__(self):
+        return (
+            f"""<polygon points="{self._pos.x},{self._pos.y} """
+            f"{self._pos.x + self._width // 2},{self._pos.y + self._height // 2} "
+            f"{self._pos.x},{self._pos.y + self._height} "
+            f"""{self._pos.x - self._width // 2},{self._pos.y + self._height // 2}" """
+            f"""fill="{self._fill}" />"""
+        )

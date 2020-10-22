@@ -8,14 +8,11 @@ class Diagram:
         self.shapes = []
 
     def draw(self):
-        shapes = "\n".join(str(s) for s in self.shapes)
-        return f"""
-            <svg height="{self._height}" 
-                 width="{self._width}" 
-                 xmlns="http://www.w3.org/2000/svg">'
-                {shapes}
-            </svg>
-        """
+        shapes = "\n   ".join(str(s) for s in self.shapes)
+        return (
+            f"""<svg height="{self._height}" width="{self._width}" """
+            f"""xmlns="http://www.w3.org/2000/svg">\n   {shapes}\n</svg>"""
+        )
 
     def add_symbol(self, symbol: Shape):
         self.shapes.append(symbol)
