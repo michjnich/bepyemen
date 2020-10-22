@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+
+# Ignore the temporary test.py/svg files until some proper tests in place
+test.svg
+test.py
