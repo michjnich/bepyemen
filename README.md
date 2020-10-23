@@ -2,4 +2,4 @@
 
 BPMN processes as Python code. 
 
-* WORK IN PROGRESS *
+**WORK IN PROGRESS**
