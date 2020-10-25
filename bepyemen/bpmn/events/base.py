@@ -6,11 +6,8 @@ EVENT_FILL_COLOUR = Colour("white")
 
 
 class BaseEvent(Circle):
-    def __init__(self, centre, radius, dashed=False):
-        super().__init__(centre, radius, EVENT_FILL_COLOUR, dashed)
-
-    # def __str__(self):
-    #     return super().__str__()
+    def __init__(self, centre, radius, dashed=False, thick=False):
+        super().__init__(centre, radius, EVENT_FILL_COLOUR, dashed, thick)
 
 
 class DashedEvent(BaseEvent):
@@ -21,7 +18,7 @@ class DashedEvent(BaseEvent):
 class DoubleBoundaryEvent(BaseEvent):
     def __init__(self, centre, radius, dashed=False):
         super().__init__(centre, radius, dashed)
-        self._inner_radius = radius - 5
+        self._inner_radius = radius - 2
         self._inner_boundary = Circle(
             self._centre,
             self._inner_radius,
@@ -40,3 +37,8 @@ class DoubleDashedBoundaryEvent(DoubleBoundaryEvent):
 
 class StartEvent(BaseEvent):
     pass
+
+
+class EndEvent(BaseEvent):
+    def __init__(self, centre, radius):
+        super().__init__(centre, radius, thick=True)
