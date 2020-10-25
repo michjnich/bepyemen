@@ -1,6 +1,10 @@
 from .base import Shape
 from .concepts import Colour, Position
 
+STROKE_DASHARRAY = 'stroke-dasharray="4 4" '
+STROKE_WIDTH_NORMAL = 1
+STROKE_WIDTH_THICK = 3
+
 
 class Line(Shape):
     def __init__(self, start: Position, end: Position, colour: Colour, dashed: bool = False):
@@ -10,30 +14,32 @@ class Line(Shape):
         self._dashed = dashed
 
     def __str__(self):
-        stroke_dasharray = 'stroke-dasharray="4 4" ' if self._dashed else ""
+        stroke_dasharray = STROKE_DASHARRAY if self._dashed else ""
         return (
             f"""<line x1="{self._start.x}" y1="{self._start.y}" """
             f"""x2="{self._end.x}" y2="{self._end.y}" """
-            f"""stroke="{self._colour}" stroke-width="2" {stroke_dasharray}/> """
+            f"""stroke="{self._colour}" stroke-width="{STROKE_WIDTH_NORMAL}" {stroke_dasharray}/> """
         )
 
 
 class Circle(Shape):
-    def __init__(self, centre: Position, radius: int, fill: Colour):
+    def __init__(self, centre: Position, radius: int, /, fill: Colour, dashed: bool = False):
         self._centre = centre
         self._radius = radius
         self._fill = fill
+        self._dashed = dashed
 
     def __str__(self):
+        stroke_dasharray = STROKE_DASHARRAY if self._dashed else ""
         return (
             f"""<circle cx="{self._centre.x}" cy="{self._centre.y}" """
             f"""r="{self._radius}" """
-            """stroke="black" stroke-width="3" """
+            f"""stroke="black" stroke-width="{STROKE_WIDTH_NORMAL}" {stroke_dasharray}"""
             f"""fill="{self._fill}" />"""
         )
 
     def __repr__(self):
-        return f"{self.__class__}({self._centre}, {self._radius})"
+        return f"{self.__class__.__name__}({self._centre}, {self._radius})"
 
 
 class Rectangle(Shape):
@@ -48,11 +54,11 @@ class Rectangle(Shape):
             f"""<rect x="{self._pos.x}" y="{self._pos.y}" """
             f"""width="{self._width}" height="{self._height}" """
             f"""fill="{self._fill}" """
-            """stroke-width="4" stroke="pink" />"""
+            f"""stroke-width="{STROKE_WIDTH_NORMAL}" stroke="pink" />"""
         )
 
     def __repr__(self):
-        return f"{self.__class__}({self._top_left}, {self._width}x{self._height})"
+        return f"{self.__class__.__name__}({self._top_left}, {self._width}x{self._height})"
 
 
 class Diamond(Shape):
@@ -70,3 +76,6 @@ class Diamond(Shape):
             f"""{self._pos.x - self._width // 2},{self._pos.y + self._height // 2}" """
             f"""fill="{self._fill}" />"""
         )
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self._pos}, {self._width}x{self._height})"
