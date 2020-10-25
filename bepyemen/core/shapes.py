@@ -64,7 +64,7 @@ class Rectangle(Shape):
             f"""<rect x="{self._pos.x}" y="{self._pos.y}" """
             f"""width="{self._width}" height="{self._height}" """
             f"""fill="{self._fill}" """
-            f"""stroke-width="{STROKE_WIDTH_NORMAL}" stroke="pink" />"""
+            f"""stroke-width="{STROKE_WIDTH_NORMAL}" stroke="black" />"""
         )
 
     def __repr__(self):

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .base import Shape
 
 
@@ -33,8 +35,13 @@ class Colour:
         return self._named_colour
 
 
+POSITION_POSITIVE_ONLY_MSG = "Position co-ordinates must be positive"
+
+
 class Position:
     def __init__(self, x: int, y: int):
+        if x < 0 or y < 0:
+            raise ValueError(POSITION_POSITIVE_ONLY_MSG)
         self._x = x
         self._y = y
 
@@ -43,6 +50,30 @@ class Position:
 
     def __repr__(self):
         return f"Position({self._x}, {self._y})"
+
+    def __add__(self, other: Position) -> Position:
+        """
+        Position(x, y) + Position(m, n) = Position(x + m, y + n)
+        """
+        if (new_x := self._x + other.x) < 0 or (new_y := self._y + other.y) < 0:
+            raise ValueError(POSITION_POSITIVE_ONLY_MSG)
+        return Position(new_x, new_y)
+
+    def __sub__(self, other: Position) -> Position:
+        """
+        Position(x, y) - Position(m, n) = Position(x - m, y - n)
+        """
+        if (new_x := self._x - other.x) < 0 or (new_y := self._y - other.y) < 0:
+            raise ValueError(POSITION_POSITIVE_ONLY_MSG)
+        return Position(new_x, new_y)
+
+    def __mul__(self, multiplier: int) -> Position:
+        """
+        Position(x, y) => Position(x * mutlipler, y * multiplier)
+        """
+        if multiplier < 0:
+            raise ValueError("Multiplier must be >= 0")
+        return Position(self._x * multiplier, self._y * multiplier)
 
     @property
     def x(self):
