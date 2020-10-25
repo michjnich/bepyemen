@@ -27,9 +27,8 @@ class BaseParticipant(Rectangle):
 class Pool(BaseParticipant):
     def __init__(self, text="", /, level=0):
         offset = Position(PARTICIPANT_NAME_WIDTH, LANE_HEIGHT) * level
-        super().__init__(
-            POOL_START_POS + offset, LANE_WIDTH - PARTICIPANT_NAME_WIDTH, LANE_HEIGHT, text
-        )
+        width = LANE_WIDTH - (PARTICIPANT_NAME_WIDTH * level)
+        super().__init__(POOL_START_POS + offset, width, LANE_HEIGHT, text)
         self._name_box = Rectangle(
             self._pos, PARTICIPANT_NAME_WIDTH, self._height, fill=PARTICIPANT_FILL_COLOUR
         )
