@@ -3,7 +3,7 @@ from .concepts import Colour, Position
 
 STROKE_DASHARRAY = 'stroke-dasharray="4 4" '
 STROKE_WIDTH_NORMAL = 1
-STROKE_WIDTH_THICK = 3
+STROKE_WIDTH_THICK = 4
 
 
 class Line(Shape):
@@ -23,18 +23,28 @@ class Line(Shape):
 
 
 class Circle(Shape):
-    def __init__(self, centre: Position, radius: int, /, fill: Colour, dashed: bool = False):
+    def __init__(
+        self,
+        centre: Position,
+        radius: int,
+        /,
+        fill: Colour,
+        dashed: bool = False,
+        thick: bool = False,
+    ):
         self._centre = centre
         self._radius = radius
         self._fill = fill
         self._dashed = dashed
+        self._thick = thick
 
     def __str__(self):
         stroke_dasharray = STROKE_DASHARRAY if self._dashed else ""
+        stroke_width = STROKE_WIDTH_THICK if self._thick else STROKE_WIDTH_NORMAL
         return (
             f"""<circle cx="{self._centre.x}" cy="{self._centre.y}" """
             f"""r="{self._radius}" """
-            f"""stroke="black" stroke-width="{STROKE_WIDTH_NORMAL}" {stroke_dasharray}"""
+            f"""stroke="black" stroke-width="{stroke_width}" {stroke_dasharray}"""
             f"""fill="{self._fill}" />"""
         )
 
